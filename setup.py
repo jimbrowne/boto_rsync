@@ -1,8 +1,8 @@
 import os, sys
 try:
-    from distutils.core import setup
-except ImportError:
     from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 install_requires = ['boto>=2.2.1']
 
