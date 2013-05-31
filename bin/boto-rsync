@@ -24,6 +24,7 @@
 import sys, os, time, datetime, argparse, threading, signal
 from fnmatch import fnmatch
 import boto
+import re
 
 __version__ = '0.8.1'
 
@@ -554,6 +555,9 @@ def main():
                             excludeFile = True
                             continue
                         elif fullpath[len(path):].lstrip(os.sep).startswith(excludePath):
+                            excludeFile = True
+                            continue
+                        elif re.search(excludePath, file):
                             excludeFile = True
                             continue
                     if excludeFile:
