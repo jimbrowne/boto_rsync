@@ -182,7 +182,18 @@ def main():
     num_cb = 10
     rename = False
     copy_file = True
-    
+
+    # Boto < 2.0 missing __version__, hence try/except
+    # S3 encryption support present in 2.1.0 and later
+    boto_err = 'Boto version 2.1.0 or later is required\n'
+    boto_err += 'Try: sudo easy_install boto\n'
+    try:
+        if boto.__version__ < '2.1.0':
+                raise AttributeError
+    except AttributeError:
+        sys.stdout.write(boto_err)
+        sys.exit(1)
+
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         usage='%(prog)s [OPTIONS] SOURCE DESTINATION',
